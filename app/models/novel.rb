@@ -9,8 +9,8 @@ class Novel < ActiveRecord::Base
   scope :show, -> { where(:is_show => true)}
 
   mapping do
-    indexes :name, type: 'string'
-    indexes :author, type: 'string'
+    indexes :name, type: 'string', analyzer: 'analysis-smartcn'
+    indexes :author, type: 'string', analyzer: 'analysis-smartcn'
   end
 
   def as_indexed_json(options={})
