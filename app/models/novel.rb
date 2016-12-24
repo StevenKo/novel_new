@@ -9,12 +9,16 @@ class Novel < ActiveRecord::Base
   scope :show, -> { where(:is_show => true)}
 
   mapping do
-    indexes :name, type: 'string', analyzer: 'analysis-smartcn'
-    indexes :author, type: 'string', analyzer: 'analysis-smartcn'
+    indexes :name, type: 'string'
+    indexes :author, type: 'string'
   end
 
   def as_indexed_json(options={})
     self.as_json(only: [:name,:author])
+  end
+
+  def self.find_in_order(ids)
+    self.where(id: ids).order("FIELD(id, #{ids.join(',')})")
   end
 
   after_create :create_index
