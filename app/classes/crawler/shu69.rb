@@ -11,7 +11,8 @@ class Crawler::Shu69
     nodes.each do |node|      
       do_not_crawl_from_link = false if crawl_this_article(from_link,node[:href])
       next if do_not_crawl_from_link
-      
+      next if node[:href].include? "newmessage.php"
+
       if novel_id == 20703
         do_not_crawl = false if node[:href] == "/txt/15418/12091444"
         next if do_not_crawl
