@@ -89,7 +89,7 @@ class CrawlerAdapter
       '飞翔鸟中文网' => {'pattern'=>'/fxnzw.com/si','name'=>'Fxnzw','crawl_site_articles' => true,'recommend' => false},
       '梦远书城' => {'pattern'=>'/my285.com/si','name'=>'My285','crawl_site_articles' => true,'recommend' => false},
       '無極小說網' => {'pattern'=>'/tw.57book.net/si','name'=>'Book57','crawl_site_articles' => true,'recommend' => false},
-      # '宙斯' => {'pattern'=>'/zhsxs.com/si','name'=>'Zhsxs','crawl_site_articles' => true,'recommend' => false},
+      '宙斯' => {'pattern'=>'/zhsxs.com/si','name'=>'Zhsxs','crawl_site_articles' => true,'recommend' => false},
       '金榜阅读' => {'pattern'=>'/jinbang.org/si','name'=>'Jinbang','crawl_site_articles' => true,'recommend' => false},
       '猎人小说' => {'pattern'=>'/orion34g.com/si','name'=>'Orion34g','crawl_site_articles' => true,'recommend' => false},
       '第五文学' => {'pattern'=>'/d5wx.com/si','name'=>'D5wx','crawl_site_articles' => true,'recommend' => false},
