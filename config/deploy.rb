@@ -1,8 +1,8 @@
 set :repo_url,        'https://github.com/StevenKo/novel_new'
 set :application,     'novel_new'
 set :user,            'deploy'
-set :puma_threads,    [3, 8]
-set :puma_workers,    1
+set :puma_threads,    [1, 6]
+set :puma_workers,    0
 
 # Don't change these unless you know what you're doing
 set :pty,             true
@@ -63,17 +63,9 @@ namespace :deploy do
     end
   end
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
-
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :finishing,    :restart
 end
 
 # ps aux | grep puma    # Get puma pid
