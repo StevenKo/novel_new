@@ -31,7 +31,7 @@ class Crawler::Wfxs
   end
 
   def crawl_article article
-    node = @page_html.css("#guild,a,script,meta,span,title").remove
+    node = @page_html.css("#guild,a,script,meta,span,title,#tips").remove
     text = change_node_br_to_newline(@page_html).strip
     article_text = ZhConv.convert("zh-tw",text,false)
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
