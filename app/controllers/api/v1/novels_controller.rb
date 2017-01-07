@@ -87,20 +87,20 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def hot
-    novels_id = HotShip.all.map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+    novels_id = HotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
     render :json => novels
   end
 
   def this_week_hot
-    novels_id = ThisWeekHotShip.all.map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+    novels_id = ThisWeekHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
     render :json => novels
   end
 
   def this_month_hot
-    novels_id = ThisMonthHotShip.all.map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+    novels_id = ThisMonthHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
     render :json => novels
   end
 
