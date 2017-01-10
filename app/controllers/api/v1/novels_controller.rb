@@ -8,8 +8,7 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def recommend_category_novels
-    params[:page] ||= 1
-    render_cached_json("api:recommend_category_novels:#{params[:page]}", expires_in: 1.hour) do
+    render_cached_json("api:recommend_category_novels:#{params[:recommend_category_id]}", expires_in: 1.hour) do
       category_id = params[:recommend_category_id]
       category = RecommendCategory.find(category_id)
       novels = category.novels.select("novels.id,name,author,pic,article_num,last_update,is_serializing").shuffle
@@ -17,24 +16,21 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def collect_novels_info
-    params[:page] ||= 1
-    render_cached_json("api:collect_novels_info:#{params[:page]}", expires_in: 1.hour) do
-      novels_id = params[:novels_id]
-      novels = Novel.where("id in (#{novels_id})").select("id,name,author,pic,article_num,last_update,is_serializing")
-    end
+    novels_id = params[:novels_id]
+    novels = Novel.where("id in (#{novels_id})").select("id,name,author,pic,article_num,last_update,is_serializing")
+    render :json => novels
   end
 
   def index
+    params[:page] ||= 1
     category_id = params[:category_id]
     unless category_id == "13"
-      params[:page] ||= 1
-      render_cached_json("api:index13:#{params[:page]}", expires_in: 1.hour) do
+      render_cached_json("api:index13:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
         categoryies_id = find_same_set_ids(category_id)
         novels = Novel.where('category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
       end
     else
-      params[:page] ||= 1
-      render_cached_json("api:index:#{params[:page]}", expires_in: 1.hour) do
+      render_cached_json("api:index:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
         novels = Novel.where('is_serializing = false').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
       end
     end
@@ -47,53 +43,69 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def category_hot
+    params[:page] ||= 1
     category_id = params[:category_id]
     unless category_id == "13"
-      categoryies_id = find_same_set_ids(category_id)
-      novels = Novel.where('category_id in (?) and is_category_hot = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_hot13:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        categoryies_id = find_same_set_ids(category_id)
+        novels = Novel.where('category_id in (?) and is_category_hot = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     else
-      novels = Novel.where('is_serializing = false and is_category_hot = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_hot:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        novels = Novel.where('is_serializing = false and is_category_hot = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     end
-    render :json => novels
   end
 
   def category_this_week_hot
+    params[:page] ||= 1
     category_id = params[:category_id]
     unless category_id == "13"
-      categoryies_id = find_same_set_ids(category_id)
-      novels = Novel.where('category_id in (?) and is_category_this_week_hot = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_this_week_hot13:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        categoryies_id = find_same_set_ids(category_id)
+        novels = Novel.where('category_id in (?) and is_category_this_week_hot = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     else
-      novels = Novel.where('is_serializing = false and is_category_this_week_hot = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_this_week_hot:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        novels = Novel.where('is_serializing = false and is_category_this_week_hot = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     end
-    render :json => novels
   end
 
   def category_recommend
+    params[:page] ||= 1
     category_id = params[:category_id]
     unless category_id == "13"
-      categoryies_id = find_same_set_ids(category_id)
-      novels = Novel.where('category_id in (?) and is_category_recommend = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_recommend13:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        categoryies_id = find_same_set_ids(category_id)
+        novels = Novel.where('category_id in (?) and is_category_recommend = true', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     else
-      novels = Novel.where('is_serializing = false and is_category_recommend = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      render_cached_json("api:category_recommend:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        novels = Novel.where('is_serializing = false and is_category_recommend = true').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50).order("updated_at DESC")
+      end
     end
-    render :json => novels
   end
 
   def category_latest_update
+    params[:page] ||= 1
     category_id = params[:category_id]
     unless category_id == "13"
-      categoryies_id = find_same_set_ids(category_id)
-      novels = Novel.where('category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
+      render_cached_json("api:category_latest_update13:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        categoryies_id = find_same_set_ids(category_id)
+        novels = Novel.where('category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
+      end
     else
-      novels = Novel.where('is_serializing = false').order("updated_at DESC").show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      render_cached_json("api:category_latest_update:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
+        novels = Novel.where('is_serializing = false').order("updated_at DESC").show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      end
     end
-    render :json => novels
   end
 
   def category_finish
     params[:page] ||= 1
-    render_cached_json("api:category_finish:#{params[:page]}", expires_in: 1.hour) do
-      category_id = params[:category_id]
+    category_id = params[:category_id]
+    render_cached_json("api:category_finish:#{params[:page]}:#{params[:category_id]}", expires_in: 1.hour) do
       categoryies_id = find_same_set_ids(category_id)
       novels = Novel.where('is_serializing = false and category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
     end
