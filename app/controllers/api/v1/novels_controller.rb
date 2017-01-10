@@ -1,37 +1,49 @@
 class Api::V1::NovelsController < Api::ApiController
 
   def new_uploaded_novels
-    novels = Novel.show.select("id,name,author,pic,article_num,last_update,is_serializing").order("created_at DESC").paginate(:page => params[:page], :per_page => 50)
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:new_uploaded_novels:#{params[:page]}", expires_in: 1.hour) do
+      novels = Novel.show.select("id,name,author,pic,article_num,last_update,is_serializing").order("created_at DESC").paginate(:page => params[:page], :per_page => 50)
+    end
   end
 
   def recommend_category_novels
-    category_id = params[:recommend_category_id]
-    category = RecommendCategory.find(category_id)
-    novels = category.novels.select("novels.id,name,author,pic,article_num,last_update,is_serializing").shuffle
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:recommend_category_novels:#{params[:page]}", expires_in: 1.hour) do
+      category_id = params[:recommend_category_id]
+      category = RecommendCategory.find(category_id)
+      novels = category.novels.select("novels.id,name,author,pic,article_num,last_update,is_serializing").shuffle
+    end
   end
 
-  def collect_novels_info 
-    novels_id = params[:novels_id]
-    novels = Novel.where("id in (#{novels_id})").select("id,name,author,pic,article_num,last_update,is_serializing")
-    render :json => novels
+  def collect_novels_info
+    params[:page] ||= 1
+    render_cached_json("api:collect_novels_info:#{params[:page]}", expires_in: 1.hour) do
+      novels_id = params[:novels_id]
+      novels = Novel.where("id in (#{novels_id})").select("id,name,author,pic,article_num,last_update,is_serializing")
+    end
   end
 
   def index
     category_id = params[:category_id]
     unless category_id == "13"
-      categoryies_id = find_same_set_ids(category_id)
-      novels = Novel.where('category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      params[:page] ||= 1
+      render_cached_json("api:index13:#{params[:page]}", expires_in: 1.hour) do
+        categoryies_id = find_same_set_ids(category_id)
+        novels = Novel.where('category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      end
     else
-      novels = Novel.where('is_serializing = false').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      params[:page] ||= 1
+      render_cached_json("api:index:#{params[:page]}", expires_in: 1.hour) do
+        novels = Novel.where('is_serializing = false').show.select("id,name,author,pic,article_num,last_update,is_serializing").paginate(:page => params[:page], :per_page => 50)
+      end
     end
-    render :json => novels
   end
 
   def show
-    novel = Novel.find(params[:id])
-    render :json => novel
+    render_cached_json("api:show:#{params[:id]}", expires_in: 1.hour) do
+      novel = Novel.find(params[:id])
+    end
   end
 
   def category_hot
@@ -79,11 +91,12 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def category_finish
-    category_id = params[:category_id]
-    categoryies_id = find_same_set_ids(category_id)
-    novels = Novel.where('is_serializing = false and category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
-  
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:category_finish:#{params[:page]}", expires_in: 1.hour) do
+      category_id = params[:category_id]
+      categoryies_id = find_same_set_ids(category_id)
+      novels = Novel.where('is_serializing = false and category_id in (?)', categoryies_id).show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
+    end
   end
 
   def hot
@@ -95,20 +108,26 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def this_week_hot
-    novels_id = ThisWeekHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:this_week_hot:#{params[:page]}", expires_in: 1.hour) do
+      novels_id = ThisWeekHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+      novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
+    end
   end
 
   def this_month_hot
-    novels_id = ThisMonthHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:this_month_hot:#{params[:page]}", expires_in: 1.hour) do
+      novels_id = ThisMonthHotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+      novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
+    end
   end
 
   def all_novel_update
-    novels = Novel.show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:all_novel_update:#{params[:page]}", expires_in: 1.hour) do
+      novels = Novel.show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
+    end
   end
 
   def search
