@@ -87,9 +87,11 @@ class Api::V1::NovelsController < Api::ApiController
   end
 
   def hot
-    novels_id = HotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
-    novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
-    render :json => novels
+    params[:page] ||= 1
+    render_cached_json("api:hot:#{params[:page]}", expires_in: 1.hour) do
+      novels_id = HotShip.paginate(:page => params[:page], :per_page => 30).map{|ship| ship.novel_id}.join(',')
+      novels = Novel.where("id in (#{novels_id})").show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").shuffle
+    end
   end
 
   def this_week_hot
