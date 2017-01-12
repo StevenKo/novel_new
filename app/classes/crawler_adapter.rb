@@ -48,7 +48,7 @@ class CrawlerAdapter
       '书迷楼org' => {'pattern'=>'/shumilou.org/si','name'=>'Shumilouorg','crawl_site_articles' => true,'recommend' => false},
       '玄葫堂' => {'pattern'=>'/xuanhutang.com/si','name'=>'Xuanhutang','crawl_site_articles' => true,'recommend' => false},
       '剑侠' => {'pattern'=>'/jianxia.cc/si','name'=>'Jianxia','crawl_site_articles' => true,'recommend' => false},
-      '全本小说网quanben' => {'pattern'=>'/quanben.com/si','name'=>'Quanben','crawl_site_articles' => true,'recommend' => false},
+      '全本小说网quanben' => {'pattern'=>'/quanben.io/si','name'=>'Quanben','crawl_site_articles' => true,'recommend' => false},
       'D586' => {'pattern'=>'/d586.com/si','name'=>'D586','crawl_site_articles' => true,'recommend' => false},
       '書吧' => {'pattern'=>'/shu88.net/si','name'=>'Shu88','crawl_site_articles' => true,'recommend' => false},
       '大文学' => {'pattern'=>'/dawenxue.net/si','name'=>'Dawenxue','crawl_site_articles' => true,'recommend' => false},
