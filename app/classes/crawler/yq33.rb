@@ -32,7 +32,7 @@ class Crawler::Yq33
           if(subject == "")
             subject = novel.name
           end
-          article.subject = ZhConv.convert("zh-tw",subject,false)
+          article.subject = novel.name
           /(\d*)\.shtml/ =~ node[:href]
           article.num = $1.to_i
           # puts node.text
