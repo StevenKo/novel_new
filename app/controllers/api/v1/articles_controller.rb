@@ -8,14 +8,15 @@ class Api::V1::ArticlesController < Api::ApiController
   def index
     novel_id = params[:novel_id]
     order = params[:order]
-
     if order == "true"
-      articles = Article.where('novel_id = (?)', novel_id).show.select("id,title,subject")
+      render_cached_json("api:article_index_order:#{params[:novel_id]}:#{params[:order]}", expires_in: 1.hour) do
+        articles = Article.where('novel_id = (?)', novel_id).show.select("id,title,subject")
+      end
     else
-      articles = Article.where('novel_id = (?)', novel_id).show.select("id,title,subject").by_id_desc
+      render_cached_json("api:article_index:#{params[:novel_id]}:#{params[:order]}", expires_in: 1.hour) do
+        articles = Article.where('novel_id = (?)', novel_id).show.select("id,title,subject").by_id_desc
+      end
     end
-
-    render :json => articles
   end
 
   # def db_transfer_index
