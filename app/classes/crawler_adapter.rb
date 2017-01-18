@@ -61,7 +61,7 @@ class CrawlerAdapter
       '红枫小说阅读网' => {'pattern'=>'/hfxs.com/si','name'=>'Hfxs','crawl_site_articles' => true,'recommend' => true},
       '思路客小说阅读网' => {'pattern'=>'/siluke.com/si','name'=>'Siluke','crawl_site_articles' => true,'recommend' => false},
       '明智屋小說網' => {'pattern'=>'/tw.mingzw.com/si','name'=>'Mingzw','crawl_site_articles' => true,'recommend' => false},
-      # '520小说' => {'pattern'=>'/520xs.com/si','name'=>'Xs520','crawl_site_articles' => true,'recommend' => false},
+      '520小说' => {'pattern'=>'/520xs.la/si','name'=>'Xs520','crawl_site_articles' => true,'recommend' => false},
       '新小說吧' => {'pattern'=>'/xxs8.com/si','name'=>'Xxs8','crawl_site_articles' => true,'recommend' => false},
       '好看小說網' => {'pattern'=>'/tw.xiaoshuokan.com/si','name'=>'Xiaoshuokan','crawl_site_articles' => true,'recommend' => false},
       'uuxs' => {'pattern'=>'/uuxs.com/si','name'=>'Uuxs','crawl_site_articles' => true,'recommend' => false},
@@ -290,6 +290,8 @@ class CrawlerAdapter
       'qb5200' => {'pattern'=>'/qb5200.com/si','name'=>'Qb5200','crawl_site_articles' => true,'recommend' => false},
       'lcread' => {'pattern'=>'/lcread.com/si','name'=>'Lcread','crawl_site_articles' => true,'recommend' => false},
       'wfxs' => {'pattern'=>'/wfxs.org/si','name'=>'Wfxs','crawl_site_articles' => true,'recommend' => false},
+      'vv44' => {'pattern'=>'/vv44/si','name'=>'Vv44','crawl_site_articles' => true,'recommend' => false},
+      'haxsc' => {'pattern'=>'/haxsc/si','name'=>'Haxsc','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},

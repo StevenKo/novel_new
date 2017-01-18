@@ -27,13 +27,14 @@ class Crawler::Quanbenxiaoshuo
         next_article = false if node[:href] == "http://quanben-xiaoshuo.com/read/5/youlingjujishou/1/91.html"
         next if next_article
       end
-      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(node[:href])
+      url = get_article_url(node[:href])
+      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(url)
       next if article
 
       unless article 
         article = Article.new
         article.novel_id = novel_id
-        article.link = node[:href]
+        article.link = url
         article.title = ZhConv.convert("zh-tw",node.text.strip,false)
         novel = Novel.select("id,num,name").find(novel_id)
         article.subject = novel.name
