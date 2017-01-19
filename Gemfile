@@ -26,7 +26,6 @@ gem 'slim'
 gem 'zhconv'
 gem 'gcm'
 gem "skylight"
-gem 'capybara'
 gem "dalli"
 
 group :development, :test do
@@ -37,6 +36,8 @@ group :development, :test do
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :development do

@@ -25,7 +25,7 @@ class Crawler::Zhsxs
         # puts node.text
         article.save
       end
-      ArticleWorker.perform_async(article.id)
+      YqArticleWorker.perform_async(article.id)
     end
     set_novel_last_update_and_num(novel_id)
   end
@@ -51,6 +51,7 @@ class Crawler::Zhsxs
     
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
     ArticleText.update_or_create(article_id: article.id, text: text)
+    sleep(5)
   end
 
 end
