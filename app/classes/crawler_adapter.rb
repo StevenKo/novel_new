@@ -293,6 +293,7 @@ class CrawlerAdapter
       'vv44' => {'pattern'=>'/vv44/si','name'=>'Vv44','crawl_site_articles' => true,'recommend' => false},
       'haxsc' => {'pattern'=>'/haxsc/si','name'=>'Haxsc','crawl_site_articles' => true,'recommend' => false},
       'zw83' => {'pattern'=>'/83zw/si','name'=>'Zw83','crawl_site_articles' => true,'recommend' => false},
+      '101novel' => {'pattern'=>'/101novel.com/si','name'=>'Novel101','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},
