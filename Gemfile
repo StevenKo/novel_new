@@ -27,6 +27,7 @@ gem 'zhconv'
 gem 'gcm'
 gem "skylight"
 gem 'capybara'
+gem 'selenium-webdriver'
 gem "dalli"
 
 group :development, :test do

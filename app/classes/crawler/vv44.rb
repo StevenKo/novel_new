@@ -1,6 +1,8 @@
+require 'capybara/dsl'
 # encoding: utf-8
 class Crawler::Vv44
   include Crawler
+  include Capybara::DSL
 
   def crawl_articles novel_id
     nodes = @page_html.css(".list-group-item.book a")
@@ -26,15 +28,22 @@ class Crawler::Vv44
 
         article.save
       end
-      ArticleWorker.perform_async(article.id)
+      YqArticleWorker.perform_async(article.id)
     end
     set_novel_last_update_and_num(novel_id)
   end
 
   def crawl_article article
-    node = @page_html.css(".content")
-    node.css("script,ins").remove
-    text = change_node_br_to_newline(node).strip
+    link = article.link
+    Capybara.current_driver = :selenium
+    Capybara.app_host = "http://tw.vv44.net"
+    page.visit(link.gsub("http://tw.vv44.net",""))
+
+    text = page.find(".content").native.text
+
+    # node = @page_html.css(".content")
+    # node.css("script,ins").remove
+    # text = change_node_br_to_newline(node).strip
     text = ZhConv.convert("zh-tw", text.strip, false)
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
     ArticleText.update_or_create(article_id: article.id, text: text)
