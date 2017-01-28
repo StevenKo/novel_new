@@ -21,7 +21,7 @@ class Crawler::Sj133
   end
 
   def crawl_articles novel_id
-    nodes = @page_html.css(".zjlist4 a")
+    nodes = @page_html.css(".dirbox a")
     url = @page_url.gsub("index.html","")
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link

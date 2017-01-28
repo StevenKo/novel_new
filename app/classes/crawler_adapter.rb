@@ -53,7 +53,7 @@ class CrawlerAdapter
       '書吧' => {'pattern'=>'/shu88.net/si','name'=>'Shu88','crawl_site_articles' => true,'recommend' => false},
       '大文学' => {'pattern'=>'/dawenxue.net/si','name'=>'Dawenxue','crawl_site_articles' => true,'recommend' => false},
       '燃痕' => {'pattern'=>'/ranhen.net/si','name'=>'Ranhen','crawl_site_articles' => true,'recommend' => false},
-      '盗墓笔记-盗墓笔记全集' => {'pattern'=>'/daomubiji.com/si','name'=>'Daomubiji','crawl_site_articles' => true,'recommend' => false},
+      '盗墓笔记-盗墓笔记全集' => {'pattern'=>'/daomubiji/si','name'=>'Daomubiji','crawl_site_articles' => true,'recommend' => false},
       '御前侍卫 ' => {'pattern'=>'/yuqianshiwei.com/si','name'=>'Yuqianshiwei','crawl_site_articles' => true,'recommend' => false},
       '冒險者天堂' => {'pattern'=>'/paradise.ezla.com/si','name'=>'Paradise','crawl_site_articles' => true,'recommend' => false},
       '盗墓小说网' => {'pattern'=>'/daomuxsw.com/si','name'=>'Daomuxsw','crawl_site_articles' => true,'recommend' => false},
