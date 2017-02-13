@@ -254,7 +254,7 @@ class CrawlerAdapter
       'yuesesx' => {'pattern'=>'/yuesesx.com/si','name'=>'Yuesesx','crawl_site_articles' => true,'recommend' => false},
       'tiantianwx' => {'pattern'=>'/tiantianwx.com/si','name'=>'Tiantianwx','crawl_site_articles' => true,'recommend' => false},
       'shuhuangge' => {'pattern'=>'/shuhuangge.com/si','name'=>'Shuhuangge','crawl_site_articles' => true,'recommend' => false},
-      'uukanshu' => {'pattern'=>'/uukanshu.com/si','name'=>'Uukanshu','crawl_site_articles' => true,'recommend' => false},
+      'uukanshu' => {'pattern'=>'/uukanshu.net/si','name'=>'Uukanshu','crawl_site_articles' => true,'recommend' => false},
       'akxs6' => {'pattern'=>'/akxs6.com/si','name'=>'Akxs6','crawl_site_articles' => true,'recommend' => false},
       'banfusheng' => {'pattern'=>'/banfusheng.com/si','name'=>'Banfusheng','crawl_site_articles' => true,'recommend' => false},
       '66721' => {'pattern'=>'/66721.com/si','name'=>'N66721','crawl_site_articles' => true,'recommend' => false},

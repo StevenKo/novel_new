@@ -38,7 +38,7 @@ module Crawler
   end
 
   def fetch url
-    @fake_browser_urls = ['www.akxs6.com','www.365xs.org','www.yqhhy.me','www.uukanshu.com','www.33yq.com','00xs.com','www.7788xiaoshuo.com',"book.rijigu.com","yueduxs.com","b.faloo.com","www.ttzw.com","www.8535.org","6ycn.net","www.readnovel.com","www.d586.com","www.fftxt.com","www.bixiage.com"]
+    @fake_browser_urls = ['www.uukanshu.net','www.akxs6.com','www.365xs.org','www.yqhhy.me','www.uukanshu.com','www.33yq.com','00xs.com','www.7788xiaoshuo.com',"book.rijigu.com","yueduxs.com","b.faloo.com","www.ttzw.com","www.8535.org","6ycn.net","www.readnovel.com","www.d586.com","www.fftxt.com","www.bixiage.com"]
     @do_not_encode_urls = ['ranwen.org','read.jd.com','feizw.com','nch.com.tw','www.feisuzw.com','aiweicn.com','ixs.cc','quledu.com','tw.xiaoshuokan.com','7788xiaoshuo.com','wcxiaoshuo.com','2dollars.com.tw','dushi800','59to.org','book.sfacg','ranwenba','shushu5','kushuku','feiku.com','daomubiji','luoqiu.com','kxwxw','txtbbs.com','tw.57book','b.faloo.com/p/','9pwx.com']
     @page_url = url
     get_page(@page_url)   
@@ -78,8 +78,8 @@ module Crawler
       path = $1
       http = Net::HTTP.new(@match_url_pattern, 80)
       option = {
-        'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36',
-        'Cookie' => 'BAIDU_SSP_lcr=https://www.google.com.tw/; bdshare_firstime=1466256175434; CNZZDATA1259570428=1940376711-1466251308-null%7C1466326914; Hm_lvt_890dc1eca4564f20e1ea0ce03998176c=1466256174; Hm_lpvt_890dc1eca4564f20e1ea0ce03998176c=1466328380'
+        'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
+        'Cookie' => 'ASP.NET_SessionId=mukuvr1brasjhx0ehg0vot3l; lastread=35628%3D0%3D%7C%7C52280%3D0%3D%7C%7C18500%3D0%3D%7C%7C40244%3D158563%3D%u7B2C%u4E94%u767E%u4E03%u5341%u4E94%u7AE0%20%u8C08%u5229%u76CA%uFF0C%u4E0D%u8BB2%u611F%u60C5...%7C%7C29676%3D0%3D; fcip=111; _ga=GA1.2.1208705874.1486953432; _gat=1'
       }
       res = http.get path, option
       content = res.body
