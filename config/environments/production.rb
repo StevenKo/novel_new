@@ -13,7 +13,7 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-  config.cache_store = :dalli_store, '192.168.155.72'
+  config.cache_store = :dalli_store, '192.168.130.251'
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
