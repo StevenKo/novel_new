@@ -25,7 +25,7 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'zhconv'
 gem 'gcm'
-gem "skylight"
+# gem "skylight"
 gem 'capybara'
 gem 'selenium-webdriver'
 gem "dalli"
