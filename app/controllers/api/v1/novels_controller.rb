@@ -137,7 +137,7 @@ class Api::V1::NovelsController < Api::ApiController
 
   def all_novel_update
     params[:page] ||= 1
-    render_cached_json("api:all_novel_update:#{params[:page]}", expires_in: 1.hour) do
+    render_cached_json("api:all_novel_update_new:#{params[:page]}", expires_in: 1.hour) do
       novels = Novel.show.select("id,name,author,pic,article_num,last_update,is_serializing").order("updated_at DESC").paginate(:page => params[:page], :per_page => 50)
     end
   end
