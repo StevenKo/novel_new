@@ -3,7 +3,6 @@ class Crawler::Lewen8
   include Crawler
 
   def crawl_articles novel_id
-    binding.pry
     nodes = @page_html.css(".chapterlist")[1].css("a")
     do_not_crawl = true
     do_not_crawl_from_link = true
