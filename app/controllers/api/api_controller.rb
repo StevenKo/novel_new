@@ -36,7 +36,7 @@ class Api::ApiController  < ActionController::Base
   end
 
   def version_check
-    render :status=>200, :json=>{ version: 63, update_link: "https://play.google.com/store/apps/details?id=com.novel.reader"}
+    render :status=>200, :json=>{ version: 104, update_link: "https://play.google.com/store/apps/details?id=com.novel.reader"}
   end
 
   def render_cached_json(cache_key, opts = {}, &block)
