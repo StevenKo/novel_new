@@ -1,30 +1,28 @@
 # encoding: utf-8
-class Crawler::Xs520
+class Crawler::Qinliugan
   include Crawler
 
   def crawl_articles novel_id
-    nodes = @page_html.css(".list dd a")
+    nodes = @page_html.css(".list li a")
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link
     nodes.each do |node|      
       do_not_crawl_from_link = false if crawl_this_article(from_link,node[:href])
       next if do_not_crawl_from_link
-      
-      url = get_article_url(node[:href])
-      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(url)
+
+      article_url = get_article_url(node[:href])
+      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(article_url)
       next if article
 
       unless article 
         article = Article.new
         article.novel_id = novel_id
-        article.link = url
+        article.link = article_url
         article.title = ZhConv.convert("zh-tw",node.text.strip,false)
         novel = Novel.select("id,num,name").find(novel_id)
         article.subject = novel.name
-        /\/(\d+)\/$/ =~ node[:href]
-        article.num = $1.to_i
-        # article.num = novel.num + 1
-        # novel.update_column(:num,novel.num + 1)
+        article.num = novel.num + 1
+        novel.update_column(:num,novel.num + 1)
         # puts node.text
         article.save
       end
@@ -34,9 +32,11 @@ class Crawler::Xs520
   end
 
   def crawl_article article
-    node = @page_html.css(".con_txt")
+    node = @page_html.css(".content")
+    node.css("a,script").remove
     text = change_node_br_to_newline(node).strip
     text = ZhConv.convert("zh-tw", text.strip, false)
+
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
     ArticleText.update_or_create(article_id: article.id, text: text)
   end

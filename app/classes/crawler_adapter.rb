@@ -18,13 +18,14 @@ class CrawlerAdapter
       '轻小说文库' => {'pattern'=>'/wenku8.com/si','name'=>'Wenku8','crawl_site_articles' => true,'recommend' => true},
       '努努' => {'pattern'=>'/book.kanunu.org/si','name'=>'Kanunu','crawl_site_articles' => true,'recommend' => true},
       '努努2' => {'pattern'=>'/kanunu8.com/si','name'=>'Kanunu8','crawl_site_articles' => true,'recommend' => true},
+      '八号文库' => {'pattern'=>'/8wenku.com/si','name'=>'Wen8','crawl_site_articles' => true,'recommend' => false},
 
       # '轻之国度-论坛' => {'pattern'=>'/lightnovel.cn/si','name'=>'Lightnovel','crawl_site_articles' => true,'recommend' => false},
       # '天使輕小說' => {'pattern'=>'/m.7tianshi.com/si','name'=>'Tianshi7','crawl_site_articles' => true,'recommend' => false},
 
       '燃文小说网org' => {'pattern'=>'/ranwen.org/si','name'=>'Ranwen','crawl_site_articles' => true,'recommend' => true},
       '读一读小说网' => {'pattern'=>'/duyidu.com/si','name'=>'Duyidu','crawl_site_articles' => true,'recommend' => false},
-      '精品文學' => {'pattern'=>'/bestory.com/si','name'=>'Bestory','crawl_site_articles' => true,'recommend' => false},
+      '精品文學' => {'pattern'=>'/bestory.com|book100.com/si','name'=>'Bestory','crawl_site_articles' => true,'recommend' => false},
       '卡提諾論壇' => {'pattern'=>'/ck101.com/si','name'=>'Ck101','crawl_site_articles' => true,'recommend' => false},
       '飛天中文' => {'pattern'=>'/gosky.net/si','name'=>'Gosky','crawl_site_articles' => true,'recommend' => false},
       '全書網' => {'pattern'=>'/quanshu.net/si','name'=>'Quanshu','crawl_site_articles' => true,'recommend' => false},
@@ -299,6 +300,9 @@ class CrawlerAdapter
       'qbyqxs' => {'pattern'=>'/qbyqxs.com/si','name'=>'Qbyqxs','crawl_site_articles' => true,'recommend' => false},
       '言情小說' => {'pattern'=>'/yqxs.com/si','name'=>'Yqxs','crawl_site_articles' => true,'recommend' => false},
       '50zw' => {'pattern'=>'/50zw.la/si','name'=>'Zw50','crawl_site_articles' => true,'recommend' => false},
+      'qiuxiaoshuo' => {'pattern'=>'/qiuxiaoshuo.com/si','name'=>'Qiuxiaoshuo','crawl_site_articles' => true,'recommend' => false},
+      'wenxuemm' => {'pattern'=>'/wenxuemm.com/si','name'=>'Wenxuemm','crawl_site_articles' => true,'recommend' => false},
+      '19lou.qinliugan' => {'pattern'=>'/19lou.qinliugan/si','name'=>'Qinliugan','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},

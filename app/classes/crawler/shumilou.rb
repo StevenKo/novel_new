@@ -83,10 +83,6 @@ class Crawler::Shumilou
         do_not_crawl = false if node[:href] == "/yuxianxunshen/5972032.html"
         next if do_not_crawl
       end
-      if novel_id == 21919
-        do_not_crawl = false if node[:href] == "/jiulongzhizun/5896937.html"
-        next if do_not_crawl
-      end
       if novel_id == 21354
         do_not_crawl = false if node[:href] == "/haizeiwangyulongzhizi/6066122.html"
         next if do_not_crawl

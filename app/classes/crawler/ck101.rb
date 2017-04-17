@@ -1,6 +1,8 @@
+require 'capybara/dsl'
 # encoding: utf-8
 class Crawler::Ck101
   include Crawler
+  include Capybara::DSL
 
   def crawl_articles novel_id
     novel = Novel.select("id,num,name").find(novel_id)
@@ -73,6 +75,12 @@ class Crawler::Ck101
   end
 
   def crawl_article article
+    link = article.link
+    Capybara.current_driver = :selenium
+    Capybara.app_host = "https://ck101.com"
+    page.visit(link.gsub("https://ck101.com",""))
+
+    @page_html = Nokogiri::HTML(page.html)
     node = @page_html.css(".t_f")
     text = node.text.strip
     text = text
