@@ -1,21 +1,30 @@
+require 'capybara/dsl'
 # encoding: utf-8
 class Crawler::Dmzj
   include Crawler
+  include Capybara::DSL
 
   def crawl_articles novel_id
-    nodes = @page_html.css(".download_rtx")
+    Capybara.current_driver = :selenium
+    Capybara.app_host = "http://q.dmzj.com"
+    page.visit(page_url.gsub("http://q.dmzj.com",""))
+    @page_html = Nokogiri::HTML(page.html)
+
+    nodes = @page_html.css(".xlist").reverse
+    chapnames = @page_html.css(".chapname .chapnamesub").reverse
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link
-    nodes.each do |node|
+    nodes.each_with_index do |node,i|
 
-      node.css("ol li span").remove
-      subject = ZhConv.convert("zh-tw",node.css("ol li").text.strip,false)
-      a_nodes = node.css("ul li a")
-      a_nodes.each do |a_node|
+      subject = ZhConv.convert("zh-tw",chapnames[i].text.strip,false)
+      a_nodes = node.css("a")
+      a_nodes.reverse_each do |a_node|
         do_not_crawl_from_link = false if crawl_this_article(from_link,a_node[:href])
         next if do_not_crawl_from_link
 
         article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(get_article_url(a_node[:href]))
+        next if article
+        article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(get_article_url(a_node[:href]).gsub("q.dmzj.com","xs.dmzj.com"))
         next if article
 
         unless article 
@@ -38,14 +47,13 @@ class Crawler::Dmzj
 
   def crawl_article article
     article_text = ""
-    links = @page_html.css('.pages a')
-    text = ""
-    text,links = crawl_page_article text,links[1][:href]
-    previous_link = links[1][:href]
-
-    while previous_link != links[links.size-2][:href]
-      previous_link = links[links.size-2][:href]
-      text,links = crawl_page_article text, previous_link
+    page_num = @page_html.css('#jump_select option').size - 1
+    /\/(\d*)\.shtml/ =~ @page_url
+    page = $1
+    text = change_node_br_to_newline(@page_html.css("#chapter_contents_first")).strip
+    (2..page_num).each do |i|
+      url = @page_url.gsub(page,"#{page}_#{i}")
+      text,links = crawl_page_article text,url
     end
 
     unless isArticleTextOK(article,text)
@@ -65,13 +73,12 @@ class Crawler::Dmzj
   def crawl_page_article text,url
     c = Crawler::NovelCrawler.new
     c.fetch get_article_url(url)
-    node = c.page_html.css("#novel_contents")
+    node = c.page_html.css("body")
     node.css("script").remove
     article_text = change_node_br_to_newline(node).strip
     article_text = ZhConv.convert("zh-tw", article_text.strip, false)
     text += article_text
-    links = c.page_html.css('.pages a')
-    return text,links
+    return text
   end
 
   def crawl_novel(category_id)
