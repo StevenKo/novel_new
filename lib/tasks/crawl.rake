@@ -105,9 +105,14 @@ namespace :crawl do
   # end
 
   task :crawl_articles_and_update_novel => :environment do
-    Novel.where("is_show = true and is_serializing = true").select("id").order("id desc").each_slice(1000) do |novels|
+    Novel.where("is_show = true and is_serializing = true and link not like '%dmzj%'").select("id").order("id desc").each_slice(1000) do |novels|
       novels.each do |novel|
         CrawlWorker.perform_async(novel.id)
+      end
+    end
+    Novel.where("is_show = true and is_serializing = true and link like '%dmzj%'").select("id").order("id desc").each_slice(1000) do |novels|
+      novels.each do |novel|
+        CapybaraNovelWorker.perform_async(novel.id)
       end
     end
   end

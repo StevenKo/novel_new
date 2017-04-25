@@ -302,7 +302,9 @@ class CrawlerAdapter
       '50zw' => {'pattern'=>'/50zw.la/si','name'=>'Zw50','crawl_site_articles' => true,'recommend' => false},
       'qiuxiaoshuo' => {'pattern'=>'/qiuxiaoshuo.com/si','name'=>'Qiuxiaoshuo','crawl_site_articles' => true,'recommend' => false},
       'wenxuemm' => {'pattern'=>'/wenxuemm.com/si','name'=>'Wenxuemm','crawl_site_articles' => true,'recommend' => false},
-      '19lou.qinliugan' => {'pattern'=>'/19lou.qinliugan/si','name'=>'Qinliugan','crawl_site_articles' => true,'recommend' => false},
+      # '19lou.qinliugan' => {'pattern'=>'/19lou.qinliugan/si','name'=>'Qinliugan','crawl_site_articles' => true,'recommend' => false},
+      'lwbaba' => {'pattern'=>'/lwbaba.com/si','name'=>'Lwbaba','crawl_site_articles' => true,'recommend' => false},
+      'biquku' => {'pattern'=>'/biquku.co/si','name'=>'Biquku','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},

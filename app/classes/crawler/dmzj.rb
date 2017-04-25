@@ -55,7 +55,7 @@ class Crawler::Dmzj
       url = @page_url.gsub(page,"#{page}_#{i}")
       text,links = crawl_page_article text,url
     end
-
+    article_text = ZhConv.convert("zh-tw",text,false)
     unless isArticleTextOK(article,text)
       imgs = @page_html.css("#novel_contents img")
       text_img = ""
@@ -67,7 +67,7 @@ class Crawler::Dmzj
     end
 
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
-    ArticleText.update_or_create(article_id: article.id, text: text)
+    ArticleText.update_or_create(article_id: article.id, text: article_text)
   end
 
   def crawl_page_article text,url
@@ -76,7 +76,6 @@ class Crawler::Dmzj
     node = c.page_html.css("body")
     node.css("script").remove
     article_text = change_node_br_to_newline(node).strip
-    article_text = ZhConv.convert("zh-tw", article_text.strip, false)
     text += article_text
     return text
   end
