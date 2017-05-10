@@ -4,7 +4,7 @@ class Crawler::Dawenxue
 
   def crawl_articles novel_id
     url = @page_url.gsub("index.html","")
-    nodes = @page_html.css(".ccss a")
+    nodes = @page_html.css("#list a")
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link
     nodes.each do |node|      
@@ -32,7 +32,7 @@ class Crawler::Dawenxue
   end
 
   def crawl_article article
-    text = @page_html.css("#clickeye_content").text.strip
+    text = @page_html.css("#content").text.strip
     text1 = text.gsub("大文学", "")
     text2 = text1.gsub("www.dawenxue.net", "")
     text2 = text2.gsub("()", "")

@@ -307,6 +307,7 @@ class CrawlerAdapter
       'lwbaba' => {'pattern'=>'/lwbaba.com/si','name'=>'Lwbaba','crawl_site_articles' => true,'recommend' => false},
       'biquku' => {'pattern'=>'/biquku.co/si','name'=>'Biquku','crawl_site_articles' => true,'recommend' => false},
       '2bgif' => {'pattern'=>'/2bgif.com/si','name'=>'Bgif2','crawl_site_articles' => true,'recommend' => false},
+      'pgyzw' => {'pattern'=>'/pgyzw.com/si','name'=>'Pgyzw','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},
