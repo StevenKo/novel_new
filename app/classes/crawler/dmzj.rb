@@ -57,16 +57,16 @@ class Crawler::Dmzj
     end
     article_text = ZhConv.convert("zh-tw",text,false)
     unless isArticleTextOK(article,text)
-      imgs = @page_html.css("#novel_contents img")
+      imgs = @page_html.css("#chapter_contents_first img")
       text_img = ""
       imgs.each do |img|
-          text_img = text_img + get_article_url(img[:src].gsub("../..","")) + "*&&$$*"
+          text_img = text_img + get_article_url(img[:src].gsub("../..","")).gsub("q.dmzj","xs.dmzj") + "*&&$$*"
       end
       text_img = text_img + "如果看不到圖片, 請更新至新版APP"
-      text = text_img
+      article_text = text_img
     end
-
-    raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
+    
+    raise 'Do not crawl the article text ' unless isArticleTextOK(article,article_text)
     ArticleText.update_or_create(article_id: article.id, text: article_text)
   end
 

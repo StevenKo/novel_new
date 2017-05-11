@@ -28,13 +28,14 @@ class Crawler::Pgyzw
       do_not_crawl_from_link = false if crawl_this_article(from_link,node[:href])
       next if do_not_crawl_from_link
 
-      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(node[:href])
+      article_url = get_article_url(node[:href])
+      article = Article.select("articles.id, is_show, title, link, novel_id, subject, num").find_by_link(article_url)
       next if article
 
       unless article 
         article = Article.new
         article.novel_id = novel_id
-        article.link = node[:href]
+        article.link = article_url
         article.title = ZhConv.convert("zh-tw",node.text.strip,false)
         novel = Novel.select("id,num,name").find(novel_id)
         article.subject = novel.name
