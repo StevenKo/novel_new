@@ -23,7 +23,7 @@ class CrawlerAdapter
       # '轻之国度-论坛' => {'pattern'=>'/lightnovel.cn/si','name'=>'Lightnovel','crawl_site_articles' => true,'recommend' => false},
       # '天使輕小說' => {'pattern'=>'/m.7tianshi.com/si','name'=>'Tianshi7','crawl_site_articles' => true,'recommend' => false},
 
-      '燃文小说网org' => {'pattern'=>'/ranwen.org/si','name'=>'Ranwen','crawl_site_articles' => true,'recommend' => true},
+      '燃文小说网org' => {'pattern'=>'/ranwen.org|ranwena.com/si','name'=>'Ranwen','crawl_site_articles' => true,'recommend' => true},
       '读一读小说网' => {'pattern'=>'/duyidu.com/si','name'=>'Duyidu','crawl_site_articles' => true,'recommend' => false},
       '精品文學' => {'pattern'=>'/bestory.com|book100.com/si','name'=>'Bestory','crawl_site_articles' => true,'recommend' => false},
       '卡提諾論壇' => {'pattern'=>'/ck101.com/si','name'=>'Ck101','crawl_site_articles' => true,'recommend' => false},
@@ -309,6 +309,7 @@ class CrawlerAdapter
       '2bgif' => {'pattern'=>'/2bgif.com/si','name'=>'Bgif2','crawl_site_articles' => true,'recommend' => false},
       'pgyzw' => {'pattern'=>'/pgyzw.com/si','name'=>'Pgyzw','crawl_site_articles' => true,'recommend' => false},
       'baishulou' => {'pattern'=>'/baishulou.net/si','name'=>'Baishulou','crawl_site_articles' => true,'recommend' => false},
+      'nuoha' => {'pattern'=>'/nuoha.com/si','name'=>'Nuoha','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},

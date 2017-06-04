@@ -3,12 +3,12 @@ class Crawler::Wen8
   include Crawler
 
   def crawl_articles novel_id
-    nodes = @page_html.css("dd.mg-15")
+    nodes = @page_html.css(".lb_mulu")
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link
     nodes.each do |node|
-      subject = ZhConv.convert("zh-tw",node.css(".ft-24").text.gsub("\n","").gsub("\r","").gsub("\t",""),false)
-      a_nodes = node.css(".inline a")
+      subject = ZhConv.convert("zh-tw",node.css(".c_big.top_t").text.gsub("\n","").gsub("\r","").gsub("\t",""),false)
+      a_nodes = node.css(".all_chapter a")
       a_nodes.each do |a_node|
         next unless a_node[:href]
         do_not_crawl_from_link = false if crawl_this_article(from_link,a_node[:href])
@@ -37,12 +37,12 @@ class Crawler::Wen8
   end
 
   def crawl_article article
-    node = @page_html.css("#J_view")
+    node = @page_html.css("#nr1")
     text = change_node_br_to_newline(node)
     text = ZhConv.convert("zh-tw", text.strip, false)
 
     if text.length < 100
-      imgs = @page_html.css("#J_view img")
+      imgs = @page_html.css("#nr1 img")
       text_img = ""
       imgs.each do |img|
         text_img = text_img + img[:src] + "*&&$$*"
