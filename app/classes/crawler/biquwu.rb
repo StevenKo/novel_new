@@ -1,11 +1,10 @@
-require 'capybara/dsl'
 # encoding: utf-8
-class Crawler::Quanben5
+class Crawler::Biquwu
   include Crawler
-  include Capybara::DSL
 
   def crawl_articles novel_id
-    nodes = @page_html.css(".list li a")
+    nodes = @page_html.css("#list a")
+    do_not_crawl = true
     do_not_crawl_from_link = true
     from_link = (FromLink.find_by_novel_id(novel_id).nil?) ? nil : FromLink.find_by_novel_id(novel_id).link
     nodes.each do |node|      
@@ -24,7 +23,6 @@ class Crawler::Quanben5
         article.subject = novel.name
         article.num = novel.num + 1
         novel.update_column(:num,novel.num + 1)
-        # puts node.text
         article.save
       end
       ArticleWorker.perform_async(article.id)
@@ -33,14 +31,10 @@ class Crawler::Quanben5
   end
 
   def crawl_article article
-    link = article.link
-    Capybara.current_driver = :selenium
-    Capybara.app_host = "http://big5.quanben5.com"
-    page.visit(link.gsub("http://big5.quanben5.com",""))
-    sleep 5
-    text = page.find("#content").native.text
+    node = @page_html.css("#content")
+    node.css("font,a,script").remove
+    text = change_node_br_to_newline(node).strip
     text = ZhConv.convert("zh-tw", text.strip, false)
-
     raise 'Do not crawl the article text ' unless isArticleTextOK(article,text)
     ArticleText.update_or_create(article_id: article.id, text: text)
   end
