@@ -312,6 +312,7 @@ class CrawlerAdapter
       'nuoha' => {'pattern'=>'/nuoha.com/si','name'=>'Nuoha','crawl_site_articles' => true,'recommend' => false},
       'biquwu' => {'pattern'=>'/biquwu.cc/si','name'=>'Biquwu','crawl_site_articles' => true,'recommend' => false},
       'ck101.org' => {'pattern'=>'/ck101.org/si','name'=>'Ck101org','crawl_site_articles' => true,'recommend' => false},
+      'kuwen' => {'pattern'=>'/kuwen.net/si','name'=>'Kuwen','crawl_site_articles' => true,'recommend' => false},
 
       '冰火' => {'pattern'=>'/binhuo.com/si','name'=>'Binhuo','crawl_site_articles' => false,'recommend' => false},
       '91baby' => {'pattern'=>'/91baby.mama.cn/si','name'=>'Baby91','crawl_site_articles' => false,'recommend' => false},
